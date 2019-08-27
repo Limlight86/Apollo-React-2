@@ -20,12 +20,26 @@ Commit 2
 --testQuery was written, gql tag and backticks, write your query inside the backticks (query looks like JS object no commas)
 
 --client.query() takes a function that will accept an object that takes in the query, i.e :
-```client.query({
+```
+client.query({
   query: testQuery
-})```
+})
+```
 this returns a promise so it can be worked with in that way.
 
 --pay attention to the object that is returned when doing apollo queries, it provides other tools such as loading value to be able to track loading states. your data is nested inside of it.
 
 Commit 3
-
+-- in the real world we dont write queries like above, deleted that query and imported in the Query component from 'react-apollo'.
+--bring in the Query tag into your render in the component, pass it a prop called query={*queryName*} to access the data from the query.
+-- when writing a query or mutation, we write its name in all caps, to reflect the constant nature of it.
+--use a render prop function in order to get the data and other properties out of the query, it needs braces to open up wirting JS inside our component. It takes in a function, with an arguement of our object which can be destructured. looks something like this:
+```
+{({ loading, data }) => {
+  if (loading) return "Loading...";
+  const { posts } = data;
+  return posts.map(post => <h1 key={post.id}>{post.title}</h1>);
+}}
+```
+--using destructuring to get access of properties in our query object. inside the fucntion we can wrtie our code. Using the loading state from the apollo obkect we can determine if something is loading and do dynamic rendering. we further destructure the data from our object to just get the posts and then map over them. When using rtender props we need to specificly return what we intend to (thus writing return before the .map)
+--using this method, we dont need to set anything to state or any lifecycle methods to govern the data. this is all goverened by the graphql query and avaialble to whatever gets wrapped in the query tag. There are further ways to refactor this code.
