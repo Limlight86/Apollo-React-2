@@ -61,3 +61,17 @@ const POSTS_QUERY = gql`
 `
 ```
 --When handling errors with GraphQL its important to use your dev tools and network tab. Simple mispelling errors might be picked up by the messages since GraphQL knows your schema that you have defined. Errors are highlighted in red in the network tab, clicking on them will give you further insight as to the error with GraphQL.
+
+Commit 5
+
+--Using variables in your queries are very useful for when you need to filter your queries or get specific id items, like a single post of a group of posts. Passing an arguement into your query (like detailed below) will let you specificy what to look for. Using `where` and then passing it a unique identifier (usually the id) will get you the specified item. `where` takes in verious different arguements, in this case it was an object with a key value pair for the unique id (remember GraphQL looks like JS but it is not). Make sure to use double quotes when inputing this value, no single quoutes! In the future using a variable will be the common use of this feature.
+```
+  post(where:{id:"cjzt2gt76l6ku0a30jmw7amud"}){
+  id
+    title
+    body
+	}
+```
+--React Router set up - npm install react-router-dom, import the required tools to APP.js. Using BrowserRouther, Switch (only show 1 route component at a time) and Route set up routes for all posts at '/' and a specific a post at '/post/:id'. Created new components for the different routes, Post and Posts. Moved the query and all its corresponding code over to the Posts compnent and the Post component is hardcoded to be the same thing every time but we will be using variables soon to make it a dyunamic component. Using BrowserRouter Link we connected the Post entry to its indiviudal page by grabbing its unique id for the url route. gql tag queries should be put at the bottom of a file or preferably in its own file that is imported to wherever it is needed.
+
+Commit 6
