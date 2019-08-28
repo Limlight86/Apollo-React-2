@@ -43,3 +43,21 @@ Commit 3
 ```
 --using destructuring to get access of properties in our query object. inside the fucntion we can wrtie our code. Using the loading state from the apollo obkect we can determine if something is loading and do dynamic rendering. we further destructure the data from our object to just get the posts and then map over them. When using rtender props we need to specificly return what we intend to (thus writing return before the .map)
 --using this method, we dont need to set anything to state or any lifecycle methods to govern the data. this is all goverened by the graphql query and avaialble to whatever gets wrapped in the query tag. There are further ways to refactor this code.
+
+Commit 4
+
+-- dont forget to install and use apollo dev tolls for viewing and testing queries, mutations and cache using graphiql (api explorer in graphCMS). GraphiQL automatically identfies our query and api. The dev tools will keep a bank of previous queries. Offers powerful tools to view cache, its history and keep track of state.
+
+--Naming queries is important to identify queries when working with them and using dev tools, make sure that query has a good name for its refference. Looks like this:
+```
+const POSTS_QUERY = gql`
+  query allPosts {
+    posts {
+      id
+      title
+      body
+    }
+  }
+`
+```
+--When handling errors with GraphQL its important to use your dev tools and network tab. Simple mispelling errors might be picked up by the messages since GraphQL knows your schema that you have defined. Errors are highlighted in red in the network tab, clicking on them will give you further insight as to the error with GraphQL.
