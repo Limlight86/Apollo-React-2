@@ -84,7 +84,7 @@ Commit 6
         id: match.params.id
       }}
     >
-    
+
  const POST_QUERY = gql`
   query post($id: ID!) {
     post(where: { id: $id }) {
@@ -95,3 +95,22 @@ Commit 6
   }
 `;
 ```
+
+Commit 7
+
+Mutationsa re structured similar to queries but instad of obtaining data it can add or change exsisting data. Mutationsa re not always available due to authentication and API settings. On our GraphCMS we need to make sure that the API gets set to Open in order to allow mutations. Mutations are typed just like queries, once naming it, inside youll be able to specify what we want it to do. In createPost, we can pass an object, in this case we pass it data, which then holds a value of an object containing the fields that we need to create the post (this is simialar to when we used where in a query). Status is a field that is a custom type to GraphCMS, draft, published or archived, it gets hard coded to published. Title and Body are strings, we hardcoded them in the example below but these will usually be a variable. When a mutation is written, it also needs to know what data to return to the user, below we return the title, body and id, these returns arent always used. Using the GraphCMS ui, we added a post to our database
+```
+mutation addPost{
+  createPost(data:{
+    status:PUBLISHED
+    title: "Mutation added"
+    body: "Body of thrid post"
+  }){
+    title
+    body
+    id
+  }
+}
+```
+
+Commit 8
