@@ -75,3 +75,23 @@ Commit 5
 --React Router set up - npm install react-router-dom, import the required tools to APP.js. Using BrowserRouther, Switch (only show 1 route component at a time) and Route set up routes for all posts at '/' and a specific a post at '/post/:id'. Created new components for the different routes, Post and Posts. Moved the query and all its corresponding code over to the Posts compnent and the Post component is hardcoded to be the same thing every time but we will be using variables soon to make it a dyunamic component. Using BrowserRouter Link we connected the Post entry to its indiviudal page by grabbing its unique id for the url route. gql tag queries should be put at the bottom of a file or preferably in its own file that is imported to wherever it is needed.
 
 Commit 6
+
+ When making specific queries for unique items, the query uses "where". Using the Query component is an important part of working with graphQL, remember to sue render props to extract loading and data to work with. The variable in our object that will hold the results we want to work with is usually called what your query is called (post or posts, see below). Using variables is important for dynamic queries. Inside the query we need specifiy the variable, use an arguement to be populated by the variable, in this case we use $id ($ infront of the argument) which is followed by the type of the variable (graphql is typed so it needs to have it specified) in this case we use ID!, ID is a type for graphql and the ! means that the input is required and graphql will error with out it (see below). Also the post needs to have its where specified by passing down the variable argument (see below). Using props, you can use {match} in order to pull the params out of the url. The query component can tke a prop called variable, by passing an object you can assign the variable (id in this case, what ever we put a $ in fornt of in the query) as a key and a match.params.id in order to match up with the url that was redirected to when a link was clicked on. Also notice how the loading becomes instant after a link has been used at least once, apollo client can cache data in order to make the suer experience smoother.
+ ```
+ <Query
+      query={POST_QUERY}
+      variables={{
+        id: match.params.id
+      }}
+    >
+    
+ const POST_QUERY = gql`
+  query post($id: ID!) {
+    post(where: { id: $id }) {
+      id
+      title
+      body
+    }
+  }
+`;
+```
